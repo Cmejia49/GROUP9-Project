@@ -1,27 +1,30 @@
-
+/* This Class hold the Attribute for Die  for more abstraction and lessen the Contructor parameter for Parent Class 
+    When using Super keyword */
 public class FaceValue{
 
-    private String value;
-    private double chances;
-    public FaceValue(String value, double chances) {
-        this.value = value;
-        this.chances = chances;
+    private String Value;
+    private double Chance;
+    public FaceValue(String value, double Chance) {
+        this.Value = value;
+        this.Chance = Chance;
     }
+    //Getter and Setter for Value
     public String getValue()
     {
-        return this.value;
+        return this.Value;
     }
     public void setValue(String value)
     {
-         this.value = value;
+         this.Value = value;
     }
-    public double getChances()
+    //Getter and Setter for Chances
+    public double getChance()
     {
-        return this.chances;
+        return this.Chance;
     }
-    public void setChances(double chances)
+    public void setChance(double chance)
     {
-         this.chances = chances;
+         this.Chance = chance;
     }
 
 }
