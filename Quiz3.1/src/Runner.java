@@ -6,7 +6,6 @@ public class Runner {
          /*1. mn1 = new MixedNumber<Float>(0.25f) results into whole = 0, numerator = 1, denominator = 4
           2. mn2 = new MixedNumber<Long>(34l, 6l) results into whole = 5, numerator = 2, denominator = 3
           3. mn3 = new MixedNumber<Double>(11d, 18d, 10d) results into whole = 12, numerator = 4, denominator = 5*/
-
         MixedFraction<Float> mn1 = new MixedFraction<Float>(0.25f);
         System.out.println(mn1);
         MixedFraction<Long> mn2= new MixedFraction<Long>(34l,6l);
@@ -25,9 +24,13 @@ public class Runner {
         
         System.out.println("SubTract:");
         System.out.println(mn3.subtractMFraction(mn2));
+
+        /* Create again a mn1 To reset the value  */
         mn1 = new MixedFraction<Float>(0.25f);
         System.out.println("Multiply:");
         System.out.println(mn3.multiplyMFraction(mn1));
+        
+         /* Create again a mn3 To reset the value  */
         mn3 = new MixedFraction<Double>(11d, 18d,10d);
         System.out.println("Divide:");
         System.out.println(mn2.divisionMFraction(mn3));// 

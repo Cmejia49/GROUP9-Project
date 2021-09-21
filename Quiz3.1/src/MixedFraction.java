@@ -1,4 +1,4 @@
-
+import javax.xml.validation.Validator;
 
 /*A mixed number can be created with the following data combination.
 1. 1 number - treated as the whole part, the numerator defaults to 0 and denominator defaults to 1
@@ -25,20 +25,20 @@ public class MixedFraction<T extends Number> extends Fraction
 {
     private int whole ;
     private T number;
-    private Fraction divF;
-    private Fraction MulF;
-    public MixedFraction(T number) {
+    public MixedFraction(T number) 
+    {
         super(number.intValue(),number.intValue());
         convertDecimalToFraction(number.doubleValue());
-        this.number = number;
-   
+        this.number = number;  
    }
    
    public MixedFraction(T num ,T denom) 
    {
     super(num.intValue(),denom.intValue());
-    if(num.intValue()>denom.intValue())
-          toMixedFraction(num.intValue(), denom.intValue());
+        if(num.intValue()>denom.intValue())
+        {
+        toMixedFraction(num.intValue(), denom.intValue()); 
+        }   
     }
 
      public MixedFraction(T number,T num ,T denom) 
@@ -47,8 +47,7 @@ public class MixedFraction<T extends Number> extends Fraction
        setWhole(number.intValue());
        if(num.intValue()>denom.intValue())
        {
-          MulF = toMixedFraction(num.intValue(), denom.intValue());
-          
+          toMixedFraction(num.intValue(), denom.intValue());        
        }
     }
 
@@ -83,7 +82,12 @@ public class MixedFraction<T extends Number> extends Fraction
         setDenominator(den3);
         setWhole(whole);
     }
-
+    /**
+     * Converting To MixedFraction if improper fraction
+     * @param num
+     * @param denum
+     * @return Fraction
+     */
     public Fraction toMixedFraction(int num,int denum)
     {
         int wNumer;
@@ -98,6 +102,13 @@ public class MixedFraction<T extends Number> extends Fraction
           return f2.simplify(wNumer,newNumerator,newDenominator);
        
     }
+    /**
+     * //Converting Mixed Fraction To improper Fraction for the Formula of Fraction
+     * @param whole
+     * @param num
+     * @param denum
+     * @return Fraction
+     */
     public Fraction toImproperFraction(int whole,int num,int denum)
     {
         int impNum = (whole*denum)+num;
@@ -105,16 +116,23 @@ public class MixedFraction<T extends Number> extends Fraction
         return f2;
      
     }
+    /**
+     * Adding Fraction
+     * @param another //Fraction
+     * @return Fraction
+     */
     public Fraction addMFraction(MixedFraction another)
     {       
         Fraction curr = another;
         Fraction num1 = another;
         Fraction num2 = another;;
+        
+        //Validating the if The fraction Have a whole number and Convert To improper Fraction
         if(this.whole != 0 && another.getWhole() != 0)
         {
             num1 =  toImproperFraction(this.whole, this.getNumerator(), this.getDenominator());
             num2 =  toImproperFraction(another.getWhole(), another.getNumerator(), another.getDenominator());
-             curr = num1.add(num2);
+            curr = num1.add(num2);
         }else if(this.whole != 0)
         {
             num1 = toImproperFraction(this.whole, this.getNumerator(), this.getDenominator());
@@ -124,30 +142,37 @@ public class MixedFraction<T extends Number> extends Fraction
         {
              num1 = new MixedFraction(this.getWhole(),this.getNumerator(),this.getDenominator());
              num2 = toImproperFraction(another.getWhole(), another.getNumerator(), another.getDenominator());
-              curr = num1.add(num2);
+             curr = num1.add(num2);
         }else
         {
             num1 = new MixedFraction(this.getWhole(),this.getNumerator(),this.getDenominator());
             num2 = new MixedFraction(another.getWhole(),another.getNumerator(),another.getDenominator());
             curr = num1.add(num2);
         }
+        //End Validation
         
         int newWhole = getWhole() + another.getWhole();
-     
+        // Validation For Improper Fraction
         if(curr.getNumerator() > curr.getDenominator())
         {
+            //if True Convert To MixedFraction and Simplify
             return toMixedFraction(curr.getNumerator(), curr.getDenominator()); 
         }
 
         MixedFraction f2 = new MixedFraction(newWhole,curr.getNumerator(),curr.getDenominator());
        return f2;
     }
-
+    /**
+     * Subtraction 
+     * @param another // Fraction
+     * @return Fraction
+     */
     public Fraction subtractMFraction(MixedFraction another)
     {     
         Fraction curr = another;
         Fraction num1 = another;
-        Fraction num2 = another;;
+        Fraction num2 = another;
+           //Validating the if The fraction Have a whole number and Convert To improper Fraction
         if(this.whole != 0 && another.getWhole() != 0)
         {
             num1 =  toImproperFraction(this.whole, this.getNumerator(), this.getDenominator());
@@ -174,27 +199,34 @@ public class MixedFraction<T extends Number> extends Fraction
             num2 = new MixedFraction(another.getWhole(),another.getNumerator(),another.getDenominator());
             curr = num1.subtract(num2);
         }
-        
+        //End Validation
         int newWhole = getWhole() + another.getWhole();
+        //Validation For Improper Fraction
         if(curr.getNumerator() > curr.getDenominator())
         {   
+            //Convert To Mixed Fraction if Improper
             return toMixedFraction( curr.getNumerator(), curr.getDenominator()); 
         }
 
         MixedFraction f2 = new MixedFraction(getWhole(),curr.getNumerator(),curr.getDenominator());
-       return f2;
+        return f2;
     }
-
+    /**
+     * Multiply
+     * @param another //Fraction
+     * @return  Fraction
+     */
     public Fraction multiplyMFraction(MixedFraction another)
     { 
         Fraction curr = another;
         Fraction num1 = another;
-        Fraction num2 = another;;
+        Fraction num2 = another;
+           //Validating the if The fraction Have a whole number and Convert To improper Fraction
         if(this.whole != 0 && another.getWhole() != 0)
         { 
             num1 =  toImproperFraction(this.whole, this.getNumerator(), this.getDenominator());
             num2 =  toImproperFraction(another.getWhole(), another.getNumerator(), another.getDenominator());
-             curr = num1.multiply(num2);
+            curr = num1.multiply(num2);
         }else if(this.whole != 0)
         {  
              num1 = toImproperFraction(this.whole, this.getNumerator(), this.getDenominator());
@@ -204,7 +236,7 @@ public class MixedFraction<T extends Number> extends Fraction
         {   
              num1 = new MixedFraction(this.getWhole(),this.getNumerator(),this.getDenominator());
              num2 = toImproperFraction(another.getWhole(), another.getNumerator(), another.getDenominator()); 
-              curr = num1.multiply(num2);
+             curr = num1.multiply(num2);
         }else
         {
            
@@ -212,10 +244,11 @@ public class MixedFraction<T extends Number> extends Fraction
             num2 = new MixedFraction(another.getWhole(),another.getNumerator(),another.getDenominator());
             curr = num1.multiply(num2);
         }
-        
+        //End Validation
+        // Validation For Improper Fraction
         if(curr.getNumerator() > curr.getDenominator())
         {
-           
+           //Convert Improper Fraction to MixedFraction
            return toMixedFraction( curr.getNumerator(), curr.getDenominator()); 
         }
 
@@ -224,12 +257,17 @@ public class MixedFraction<T extends Number> extends Fraction
         return f2.simplify(getWhole(), curr.getNumerator() , curr.getDenominator());
   
     }
-
+    /**
+     * Division
+     * @param another //Fraction
+     * @return Fraction
+     */
     public Fraction divisionMFraction(MixedFraction another)
     { 
         Fraction curr = another;
         Fraction num1 = another;
-        Fraction num2 = another;;
+        Fraction num2 = another;
+           //Validating the if The fraction Have a whole number and Convert To improper Fraction
         if(this.whole != 0 && another.getWhole() != 0)
         {
             num1 =  toImproperFraction(this.whole, this.getNumerator(), this.getDenominator());
@@ -256,10 +294,11 @@ public class MixedFraction<T extends Number> extends Fraction
             num2 = new MixedFraction(another.getWhole(),another.getNumerator(),another.getDenominator());
             curr = num1.divide(num2);
         }
-        
-        int newWhole = getWhole() + another.getWhole();
+        //End Validation
+        //Validation For Improper Fraction
         if(curr.getNumerator() > curr.getDenominator())
         { 
+            //Convert To MixedFraction
             return toMixedFraction( curr.getNumerator(), curr.getDenominator()); 
         }
 

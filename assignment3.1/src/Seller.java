@@ -18,7 +18,6 @@ public class Seller implements IEmployee, Serializable{
     {
         return this.totalSales;
     }
-
     public double getSalary()
     {
         return totalSales*0.2;
