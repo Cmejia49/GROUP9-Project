@@ -1,0 +1,66 @@
+package View;
+import Controller.*;
+import Model.*;
+import javax.swing.*;
+import java.awt.*;
+public class ReviewerDetailView extends JPanel{
+    private JTextField txtStudentNumber, txtName;
+    private JComboBox<String> cmbProgram;
+    private JComboBox<Integer> cmbYearLevel;
+    private JButton btnSave, btnCancel;
+    private ReviewerList list;
+    private Reviewer reviewer;
+    private MainView main;
+    private JFrame app;
+    private <T> void setComboBoxIndex(JComboBox<T> cmbOptions, T[] array, T element){
+        int index = -1;
+        for(int i=0; i<array.length; i++){
+            if(array[i].equals(element)){
+                index = i;
+            }
+        }
+        if(index!=-1){
+            cmbOptions.setSelectedIndex(index);
+        }
+    }
+    public ReviewerDetailView(Reviewer reviewer, ReviewerList list, MainView main, JFrame app){
+        this.reviewer = reviewer;
+        this.list = list;
+        this.main = main;
+        this.app = app;
+        txtStudentNumber = new JTextField();
+        txtName = new JTextField();
+        String[]programs = {"Computer Science", "Information Technology", "Information Systems"};
+        cmbProgram = new JComboBox<String>(programs);
+        Integer[]yearLevels = {1,2,3,4,5};
+        cmbYearLevel = new JComboBox<Integer>(yearLevels);
+        btnSave = new JButton("Save");
+        btnCancel = new JButton("Cancel");
+        JPanel pnlWest = new JPanel(new GridLayout(4, 1));
+        JPanel pnlCenter = new JPanel(new GridLayout(4, 1));
+        JPanel pnlSouth = new JPanel(new GridLayout(1,2));
+        setLayout(new BorderLayout());
+        pnlWest.add(new JLabel("Student Number"));
+        pnlWest.add(new JLabel("Name"));
+        pnlWest.add(new JLabel("Program"));
+        pnlWest.add(new JLabel("Year Level"));
+        pnlCenter.add(txtStudentNumber);
+        pnlCenter.add(txtName);
+        pnlCenter.add(cmbProgram);
+        pnlCenter.add(cmbYearLevel);
+        pnlSouth.add(btnSave);
+        pnlSouth.add(btnCancel);
+        add(pnlWest, "West");
+        add(pnlCenter);
+        add(pnlSouth, "South");
+        btnSave.addActionListener(new SaveController(student, list, main, app,
+            txtStudentNumber, txtName, cmbProgram, cmbYearLevel));
+        btnCancel.addActionListener(new CancelController(main, app));
+        if(student!=null){
+            txtStudentNumber.setText(String.valueOf(student.getStudentNumber()));
+            txtName.setText(student.getName());
+            setComboBoxIndex(cmbProgram, programs, student.getProgram());
+            setComboBoxIndex(cmbYearLevel, yearLevels, Integer.valueOf(student.getYearLevel()));
+        }
+    }
+}
