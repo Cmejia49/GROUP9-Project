@@ -3,13 +3,15 @@ import java.util.Observable;
 
 public class Reviewer extends Observable 
 {
+    private int id;
     private String restaurant;
     private String name;
     private String review;
     private int rating;
 
-    public Reviewer(String restaurant, String name, String review, int rating)
+    public Reviewer(int id,String restaurant, String name, String review, int rating)
     {
+      this.id = id;
        this.restaurant = restaurant;
        this.name = name;
        this.review = review;
@@ -27,6 +29,10 @@ public class Reviewer extends Observable
         notifyObservers();
     }
     //getter
+    public int getId()
+    {
+        return id;
+    }
     public String getRestourant()
     {
         return restaurant;

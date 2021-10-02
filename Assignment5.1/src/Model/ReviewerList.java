@@ -33,8 +33,16 @@ public class ReviewerList extends Observable
            loadData();
     }
     public void remove(int index){
-        list.remove(index);
-        reviewerListchange();
+     
+     Reviewer reviewer= list.get(index);
+     String sql = String.format(
+         "DELETE FROM reviewTbl " +
+         "WHERE id = %d",
+         reviewer.getId()
+     );
+     // execute update and reload data to reflect changes
+     DBConnection.executeUpdate(sql);
+     loadData();
     }
     public void set(int index, Reviewer reviewer){
         list.set(index, reviewer);
@@ -75,10 +83,13 @@ public class ReviewerList extends Observable
             clearList();
             while(rs.next())
             {
-                String restourant = rs.getString("restourant");
-                String reviewer = rs.getString("reviewer");
-                String review = rs.getString("review");
-                int rating = rs.getInt("rating");
+                list.add(new Reviewer(
+                    rs.getInt("id"),
+                    rs.getString("restourant"),
+                    rs.getString("reviewer"),
+                    rs.getString("review"),
+                    rs.getInt("rating")
+                ));
             }
             reviewerListchange();
         }

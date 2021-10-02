@@ -38,14 +38,14 @@ public class SaveController implements ActionListener{
         if(jbtnRating4.isSelected()){ rating = Integer.parseInt(jbtnRating4.getText());}
         if(jbtnRating5.isSelected()){ rating = Integer.parseInt(jbtnRating5.getText());}
         if(reviewer == null){
-            Reviewer curr = new Reviewer(restaurant, name, review, rating);
+            Reviewer curr = new Reviewer(1,restaurant, name, review, rating);
             list.add(curr);
-            JOptionPane.showMessageDialog(app, "Student Added!");
+            JOptionPane.showMessageDialog(app, "Review Added!");
         }else{
             reviewer.setRestourant(restaurant);
             reviewer.setName(name);
             reviewer.setReview(review);
-            JOptionPane.showMessageDialog(app, "Student Data Updated!");
+            JOptionPane.showMessageDialog(app, "Review Data Updated!");
         }
         app.getContentPane().removeAll();
         app.add(main);
