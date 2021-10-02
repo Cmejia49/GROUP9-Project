@@ -68,14 +68,17 @@ public class MainView extends JPanel implements Observer
         btnAdd.addActionListener(new AddController(list, this, app, user, txtUsername, txtPassword, cbUserType, lblCount));
         btnEdit.addActionListener(new EditController(user,list, this, app, txtUsername, txtPassword, cbUserType, lblCount));
         btnBack.addActionListener(new BackController(new LoginView(list, app),app));
-        btnPrev.addActionListener(new PrevController(list, this, app, user, txtUsername, txtPassword, cbUserType, lblCount));
-        btnNxt.addActionListener(new NextController(list, this, app, user, txtUsername, txtPassword, cbUserType, lblCount));
-        btnDelete.addActionListener(new DeleteController(user,list, this, app, txtUsername, txtPassword, cbUserType, lblCount));
+        btnPrev.addActionListener(new PrevController(list, this, app, user));
+        btnNxt.addActionListener(new NextController(list, this, app, user));
+        btnDelete.addActionListener(new DeleteController(user,list, this, app));
     }
     @Override
     public void update(Observable o, Object arg) 
     {
-        //don't know how to use observer
+        txtUsername.setText(user.getUsername());
+        txtPassword.setText(user.getPassword());
+        cbUserType.setSelectedItem(user.getUserType());
+        lblCount.setText(String.valueOf(user.getCount()));
         
     }
 

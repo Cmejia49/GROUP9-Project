@@ -47,7 +47,7 @@ public class LoginView extends JPanel implements Observer
     @Override
     public void update(Observable o, Object arg) 
     {
-       //dont' know how to user
+        //
     }
     public void setClearAction(ActionListener clearAction)
     {

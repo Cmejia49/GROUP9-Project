@@ -12,21 +12,14 @@ public class NextController  implements ActionListener
     private MainView main;
     private JFrame app;
     private User user;
-    private JTextField txtUsername, txtPassword;
-    private JComboBox<String> cbUserType;
-    private JLabel lblCount;
-    public NextController(UserList list,MainView main,JFrame app,User user,
-    JTextField txtUsername, JTextField txtPassword,JComboBox<String> cbUserType, JLabel lblCount)
+    public NextController(UserList list,MainView main,JFrame app,User user)
     {
 
         this.list = list;
         this.main = main;
         this.app = app;
         this.user = user;
-        this.txtUsername = txtUsername;
-        this.txtPassword = txtPassword;
-        this.cbUserType = cbUserType;
-        this.lblCount = lblCount;
+  
         
     }
     public void actionPerformed(ActionEvent ae)
@@ -34,10 +27,7 @@ public class NextController  implements ActionListener
         
         User curr = list.next();
         if(curr == null || list.size() == 1){JOptionPane.showMessageDialog(app, "no Other User!");return;}     
-        txtUsername.setText(curr.getUsername());
-        txtPassword.setText(curr.getPassword());
-        cbUserType.setSelectedItem(curr.getUserType());
-        lblCount.setText(String.valueOf(curr.getCount()));
+        MainView main = new MainView(curr, list, app);
         app.getContentPane().removeAll();
         app.add(main);
         app.validate();
